@@ -3,12 +3,19 @@
 echo "Starting the default changes for Myriad servers"
 # Add the new user admin account
 while [ x$username = "x" ]; do
+
 read -p "Please enter the username you wish to create : " username
+
 if id -u $username >/dev/null 2>&1; then
+
 echo "User already exists"
+
 username=""
+
 fi
+
 done
+
 echo "Adding the $username account"
 useradd -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi -m $username
 echo "Now to set password"
