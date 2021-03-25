@@ -31,6 +31,8 @@ echo " > starting update"
 apt update 
 echo " > starting full upgrade"
 apt full-upgrade -y
+echo " > cleaning the cache"
+apt clean
 
 # download + install docker
 echo "Installing Docker"
@@ -38,6 +40,8 @@ echo " > downloading executable"
 curl -fsSL https://get.docker.com -o get-docker.sh
 echo " > running executable"
 sh get-docker.sh
+echo " > removing file"
+rm get-docker.sh
 
 # Installing portainer
 echo "Installing portainer"
