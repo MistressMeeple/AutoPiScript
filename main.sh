@@ -1,14 +1,14 @@
 #!/bin/bash
-
+USERNAME="manager"
 echo "Starting the default changes for Myriad servers"
 # Add the new user admin account
-echo "Adding the manager account"
-echo " > Creating admin account"
-useradd -m mnanager
-echo " > Adding manager to groups"
-useradd -aG adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
-echo " > Setting manager's password"
-usermod -p $6$lWdugeBABF0JKPhz$hUqtqQPGRK1BPCvL4cf5yYgcpWdEXE776DBhnljxquQjEzwC04dP3fN6igjbc7GGWkToWUq/1TuaWNrdHva0e0 manager
+echo "Adding the $USERNAME account"
+echo " > Creating $USERNAME account"
+useradd -m $USERNAME
+echo " > Adding $USERNAME to groups"
+useradd -aG adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi $USERNAME
+echo " > Setting $USERNAME's password"
+usermod -p $6$lWdugeBABF0JKPhz$hUqtqQPGRK1BPCvL4cf5yYgcpWdEXE776DBhnljxquQjEzwC04dP3fN6igjbc7GGWkToWUq/1TuaWNrdHva0e0 $USERNAME
 
 # diable pi login, but keep the account
 echo "Disabling the default 'pi' account'"
