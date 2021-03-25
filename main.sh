@@ -11,7 +11,7 @@ echo " > Setting $USERNAME's password"
 usermod -p $6$lWdugeBABF0JKPhz$hUqtqQPGRK1BPCvL4cf5yYgcpWdEXE776DBhnljxquQjEzwC04dP3fN6igjbc7GGWkToWUq/1TuaWNrdHva0e0 $USERNAME
 
 # diable pi login, but keep the account
-echo "Disabling the default 'pi' account'"
+echo "Disabling the default 'pi' account"
 usermod -L -e 1 pi
 
 # enable SSH 
