@@ -1,8 +1,18 @@
 #!/bin/bash
 
-# Add the manager
-echo "Adding the manager account"
-useradd -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi -m  -p $6$lWdugeBABF0JKPhz$hUqtqQPGRK1BPCvL4cf5yYgcpWdEXE776DBhnljxquQjEzwC04dP3fN6igjbc7GGWkToWUq/1TuaWNrdHva0e0 manager
+echo "Starting the default changes for Myriad servers"
+# Add the new user admin account
+while [ x$username = "x" ]; do
+	read -p "Please enter the username you wish to create : " username
+	if id -u $username >/dev/null 2>&1; then
+		echo "User already exists"
+		username=""
+	fi
+done
+echo "Adding the $username account"
+useradd -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi -m $username
+echo "Now to set password"
+passwd $username
 
 # diable pi login, but keep the account
 echo "Disabling the default 'pi' account'"
@@ -10,17 +20,23 @@ usermod -L -e 1 pi
 
 # enable SSH 
 echo "Enabling SSH"
+echo " > Enabling SSH daemon"
 systemctl enable ssh
+echo " > Start ssh daaemon"
 systemctl start ssh
 
 # do a full upgrade of all packages
 echo "Performing full update and upgrade"
+echo " > starting update"
 apt update 
+echo " > starting full upgrade"
 apt full-upgrade -y
 
 # download + install docker
 echo "Installing Docker"
-curl -fsSL https://get.docker.com -o get-docker.sh 
+echo " > downloading executable"
+curl -fsSL https://get.docker.com -o get-docker.sh
+echo " > running executable"
 sh get-docker.sh
 
 # Installing portainer
